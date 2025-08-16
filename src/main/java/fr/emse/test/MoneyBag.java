@@ -55,19 +55,24 @@ class MoneyBag implements IMoney {
     }
     
     @Override
-    public IMoney add(IMoney aMoney) {
-        if (aMoney instanceof Money) {
-            return new MoneyBag(fMonies.toArray(new Money[0])).add((Money) aMoney);
-        } else if (aMoney instanceof MoneyBag) {
-            MoneyBag other = (MoneyBag) aMoney;
-            MoneyBag result = new MoneyBag(fMonies.toArray(new Money[0]));
-            for (Money m : other.fMonies) {
-                result.appendMoney(m);
-            }
-            return result;
-        }
-        return null;
+    public IMoney add(IMoney m) {
+        return m.addMoneyBag(this);
     }
+
+    @Override
+    public IMoney addMoney(Money m) {
+        MoneyBag newBag = new MoneyBag(fMonies.toArray(new Money[0]));
+        newBag.appendMoney(m);
+        return newBag;
+    }
+
+    @Override
+    public IMoney addMoneyBag(MoneyBag mb) {
+        MoneyBag newBag = new MoneyBag(fMonies.toArray(new Money[0]));
+        for (Money m : mb.fMonies) newBag.appendMoney(m);
+        return newBag;
+    }
+
     
     @Override
     public int hashCode() {

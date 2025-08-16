@@ -39,4 +39,27 @@ public class MoneyBagTest {
 	    MoneyBag expected = new MoneyBag(bag); 
 	    assertEquals(expected, f12CHF.add(f7USD)); 
     }     
+    
+    @Test
+    public void testBagSimpleAdd() {
+        Money m5CHF = new Money(5, "CHF");
+        MoneyBag mb = new MoneyBag(f14CHF, f21USD); 
+        MoneyBag expected = new MoneyBag(new Money[]{ new Money(19, "CHF"), f21USD });
+        assertEquals(expected, m5CHF.add(mb));
+    }
+
+    @Test
+    public void testSimpleBagAdd() {
+        Money m3USD = new Money(3, "USD");
+        MoneyBag expected = new MoneyBag(new Money[]{ f12CHF, new Money(10, "USD") });
+        assertEquals(expected, fMB1.add(m3USD));
+    }
+
+    @Test
+    public void testBagBagAdd() {
+        MoneyBag mb1 = new MoneyBag(f12CHF, f7USD);
+        MoneyBag mb2 = new MoneyBag(f14CHF, f21USD);
+        MoneyBag expected = new MoneyBag(new Money[]{ new Money(26, "CHF"), new Money(28, "USD") });
+        assertEquals(expected, mb1.add(mb2));
+    }
 }
