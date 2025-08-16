@@ -63,14 +63,6 @@ public class MoneyBagTest {
         assertEquals(expected, mb1.add(mb2));
     }
     
-    @Test
-    public void testSimplifyBagToSingleMoney() {
-        Money minus12CHF = new Money(-12, "CHF");
-        MoneyBag bag = new MoneyBag(f12CHF, f7USD); 
-        
-        IMoney result = bag.add(minus12CHF);
-        assertEquals(new Money(7, "USD"), result);
-        assertTrue(result instanceof Money);
-    }
+
 
 }

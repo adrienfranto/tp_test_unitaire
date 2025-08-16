@@ -18,23 +18,32 @@ public class Money implements IMoney {
         return fCurrency;
     }
 
+ // Money.java
+    @Override
+    public IMoney addMoneyBag(MoneyBag mb) {
+        return mb.addMoney(this).simplify(); 
+    }
+
     @Override
     public IMoney add(IMoney m) {
-        return m.addMoney(this);
+        return m.addMoney(this).simplify(); 
     }
 
     @Override
     public IMoney addMoney(Money m) {
-        if (m.currency().equals(this.currency()))
+        if (m.currency().equals(this.currency())) {
             return new Money(this.amount() + m.amount(), currency());
-        return new MoneyBag(this, m);
+        }
+        return new MoneyBag(this, m).simplify();
     }
 
+
+
     @Override
-    public IMoney addMoneyBag(MoneyBag mb) {
-        return mb.addMoney(this); 
+    public IMoney simplify() {
+        return this; 
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -43,7 +52,7 @@ public class Money implements IMoney {
         return this.fAmount == other.fAmount &&
                this.fCurrency.equals(other.fCurrency);
     }
-    
+
     @Override
     public int hashCode() {
         return 31 * fAmount + fCurrency.hashCode();
