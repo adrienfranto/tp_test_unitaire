@@ -24,8 +24,10 @@ public class Money {
     
     @Override
     public boolean equals(Object obj) {
-    	if(!(obj instanceof Money)) return false;
-    	Money other = (Money) obj;
-    	return this.fAmount == other.fAmount && this.fCurrency.equals(other.fCurrency);
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof Money)) return false;
+        Money other = (Money) obj;
+        return this.fAmount == other.fAmount &&
+               this.fCurrency.equals(other.fCurrency);
     }
 }
