@@ -21,4 +21,11 @@ public class Money {
     public Money add(Money m) {
         return new Money(amount() + m.amount(), currency());
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(!(obj instanceof Money)) return false;
+    	Money other = (Money) obj;
+    	return this.fAmount == other.fAmount && this.fCurrency.equals(other.fCurrency);
+    }
 }
