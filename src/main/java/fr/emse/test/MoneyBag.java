@@ -53,4 +53,13 @@ class MoneyBag {
         }
         return true;
     }
+    
+    @Override
+    public int hashCode() {
+        int hash = 17;
+        for (Money m : fMonies) {
+            hash = 31 * hash + m.hashCode();
+        }
+        return hash;
+    }
 }
