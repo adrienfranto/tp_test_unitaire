@@ -19,18 +19,20 @@ public class Money implements IMoney {
     }
 
     @Override
-    public IMoney add(IMoney aMoney) {
-        if (aMoney instanceof Money) {
-            Money m = (Money) aMoney;
-            if (m.currency().equals(currency())) {
-                return new Money(amount() + m.amount(), currency());
-            } else {
-                return new MoneyBag(this, m);
-            }
-        } else if (aMoney instanceof MoneyBag) {
-            return ((MoneyBag) aMoney).add(this);
-        }
-        return null;
+    public IMoney add(IMoney m) {
+        return m.addMoney(this);
+    }
+
+    @Override
+    public IMoney addMoney(Money m) {
+        if (m.currency().equals(this.currency()))
+            return new Money(this.amount() + m.amount(), currency());
+        return new MoneyBag(this, m);
+    }
+
+    @Override
+    public IMoney addMoneyBag(MoneyBag mb) {
+        return mb.addMoney(this); 
     }
     
     @Override
@@ -40,5 +42,10 @@ public class Money implements IMoney {
         Money other = (Money) obj;
         return this.fAmount == other.fAmount &&
                this.fCurrency.equals(other.fCurrency);
+    }
+    
+    @Override
+    public int hashCode() {
+        return 31 * fAmount + fCurrency.hashCode();
     }
 }
