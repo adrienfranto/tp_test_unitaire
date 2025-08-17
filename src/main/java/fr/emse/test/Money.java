@@ -1,9 +1,11 @@
 package fr.emse.test;
 
+import java.util.Objects;
+
 public class Money implements IMoney {
 
-    private int fAmount;
-    private String fCurrency;
+    private final int fAmount;
+    private final String fCurrency;
 
     public Money(int amount, String currency) {
         fAmount = amount;
@@ -18,43 +20,40 @@ public class Money implements IMoney {
         return fCurrency;
     }
 
- // Money.java
     @Override
     public IMoney addMoneyBag(MoneyBag mb) {
-        return mb.addMoney(this).simplify(); 
+        return mb.addMoney(this).simplify();
     }
 
     @Override
     public IMoney add(IMoney m) {
-        return m.addMoney(this).simplify(); 
+        return m.addMoney(this).simplify();
     }
 
     @Override
     public IMoney addMoney(Money m) {
-        if (m.currency().equals(this.currency())) {
+        if (Objects.equals(m.currency(), this.currency())) {
             return new Money(this.amount() + m.amount(), currency());
         }
         return new MoneyBag(this, m).simplify();
     }
 
-
-
     @Override
     public IMoney simplify() {
-        return this; 
+        return this;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || !(obj instanceof Money)) return false;
-        Money other = (Money) obj;
-        return this.fAmount == other.fAmount &&
-               this.fCurrency.equals(other.fCurrency);
+        if (!(obj instanceof Money other)) return false; 
+        return fAmount == other.fAmount &&
+               Objects.equals(fCurrency, other.fCurrency);
     }
 
     @Override
     public int hashCode() {
-        return 31 * fAmount + fCurrency.hashCode();
+        return Objects.hash(fAmount,fCurrency);
     }
+    
 }

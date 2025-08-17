@@ -1,7 +1,7 @@
 package fr.emse.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,29 +17,30 @@ public class MoneyBagTest {
 
     @Before 
     public void setUp() { 
-	    f12CHF= new Money(12, "CHF"); 
-	    f14CHF= new Money(14, "CHF"); 
-	    f7USD= new Money( 7, "USD"); 
-	    f21USD= new Money(21, "USD"); 
-	    fMB1= new MoneyBag(f12CHF, f7USD); 
-	    fMB2= new MoneyBag(f14CHF, f21USD); 
+        f12CHF = new Money(12, "CHF"); 
+        f14CHF = new Money(14, "CHF"); 
+        f7USD = new Money(7, "USD"); 
+        f21USD = new Money(21, "USD"); 
+        fMB1 = new MoneyBag(f12CHF, f7USD); 
+        fMB2 = new MoneyBag(f14CHF, f21USD); 
     } 
+
     @Test 
     public void testBagEquals() { 
-	    assertTrue(!fMB1.equals(null)); 
-	    assertEquals(fMB1, fMB1); 
-	    assertTrue(!fMB1.equals(f12CHF)); 
-	    assertTrue(!f12CHF.equals(fMB1)); 
-	    assertTrue(!fMB1.equals(fMB2)); 
+        assertNotEquals(null, fMB1); 
+        assertEquals(fMB1, fMB1); 
+        assertNotEquals(fMB1, f12CHF); 
+        assertNotEquals(f12CHF, fMB1); 
+        assertNotEquals(fMB1, fMB2); 
     } 
-    
+
     @Test 
     public void testMixedSimpleAdd() { 
-	    Money bag[] = { f12CHF, f7USD }; 
-	    MoneyBag expected = new MoneyBag(bag); 
-	    assertEquals(expected, f12CHF.add(f7USD)); 
+        Money[] bag = { f12CHF, f7USD }; 
+        MoneyBag expected = new MoneyBag(bag); 
+        assertEquals(expected, f12CHF.add(f7USD)); 
     }     
-    
+
     @Test
     public void testBagSimpleAdd() {
         Money m5CHF = new Money(5, "CHF");
@@ -62,7 +63,4 @@ public class MoneyBagTest {
         MoneyBag expected = new MoneyBag(new Money[]{ new Money(26, "CHF"), new Money(28, "USD") });
         assertEquals(expected, mb1.add(mb2));
     }
-    
-
-
 }

@@ -2,10 +2,12 @@ package fr.emse.test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ MoneyBagTest.class, MoneyTest.class })
+@Suite.SuiteClasses({
+    MoneyTest.class,
+    MoneyBagTest.class
+})
 public class AllTests {
-
+    // Empty class just to run all tests
 }
